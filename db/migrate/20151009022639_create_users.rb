@@ -1,9 +1,11 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.column :name, :string
-      t.column :email, :string
-      t.column :coins, :integer
+      t.string :name
+      t.string :email, null: false
+      t.integer :coins, null: false, default: 0
+
+      t.timestamps null: false
     end
   end
 end

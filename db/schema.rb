@@ -11,15 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009022639) do
+ActiveRecord::Schema.define(version: 20151009130036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "identities", force: :cascade do |t|
+    t.string   "provider",   null: false
+    t.string   "token",      null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string  "name"
-    t.string  "email"
-    t.integer "coins"
+    t.string   "name"
+    t.string   "email",                  null: false
+    t.integer  "coins",      default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end
